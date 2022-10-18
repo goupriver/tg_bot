@@ -6,7 +6,7 @@ const { generateVPN } = require('./backend')
 const {readfile} = require('./promise')
 require('dotenv').config()
 
-const token = '5612029380:AAGZMXNO_AjFn0xe7VuPAu94Xo3FkvWnEsc';
+const token = process.env.TOKEN
 
 const bot = new TelegramApi(token, { polling: true });
 bot.setMyCommands([

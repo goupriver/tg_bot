@@ -1,0 +1,19 @@
+{
+  "name": "v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "firebase": "^9.12.1",
+    "node-telegram-bot-api": "^0.59.0"
+  }
+}

@@ -10,7 +10,9 @@ const generateVPN = async (userID) => {
     // 1. генерируем ключи для пользователя в папку 
     .then(p => generateKey(p))
     // 2 извлекаем приватный ключ юзера и ip
-    .then(p => Promise.all([readfile(path.resolve(p, 'gen.key')), readfile(path.resolve(`${__dirname}/wireguard`, 'ip')), p]))
+    .then(p => {
+      return Promise.all([readfile(path.resolve(p, 'gen.key')), readfile(path.resolve(`${__dirname}/wireguard`, 'ip')), p])
+    })
     // 3 создаем конфиг для пользователя
     .then(([privateKey, ip, p]) => {
       writefile(path.resolve(p, `${userID}.conf`), exampleClient({ ip, privateKey }))
@@ -22,7 +24,7 @@ const generateVPN = async (userID) => {
     })
     // 4 Добавляем пира в  файл конфигурации
     .then(([clientPubKey, ip, p]) => {
-      // addPeer({clientPubKey, ip})
+      addPeer({clientPubKey, ip})
       return [ip, p]
     })
     // 5 инкрементируем IP
@@ -34,7 +36,7 @@ const generateVPN = async (userID) => {
     })
     // 6. сохраняем конфиг 
     .then(p => {
-      // saveWg()
+      saveWg()
       return p
     })
     // 7. генерируем qr
@@ -46,6 +48,6 @@ const generateVPN = async (userID) => {
     .then(([p, userID]) => {
       createZIP({ path: p, userID })
     })
-}  
+}
 
 module.exports.generateVPN = generateVPN

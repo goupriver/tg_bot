@@ -47,9 +47,12 @@ const readfile = (path) => {
   })
 }
 
-const addPeer = ({clientPubKey, ip}) => {
+const addPeer = async ({clientPubKey, ip}) => {
   return new Promise((resolve, reject) => {
-    exec(`wg set wg0 peer ${clientPubKey} allowed-ips 10.0.0.${ip}/32`, (error, stdout) => {
+    const ar0 = [...clientPubKey]
+    const ar1 = ar0.splice(-1, 1);
+    const ar2 = ar0.join("")
+    exec(`wg set wg0 peer ${ar2} allowed-ips 10.0.0.${ip}/32`, (error, stdout) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;
@@ -84,7 +87,6 @@ const genQR = ({path, userID}) => {
 }
 
 const createZIP = ({path, userID}) => {
-  console.log(path, `${userID}.conf`);
   return new Promise((resolve, reject) => {
     exec(`zip -j ${path}/${userID}.zip ${path}/${userID}.conf`, (error, stdout) => {
       if (error) {

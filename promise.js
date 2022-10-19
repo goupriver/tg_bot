@@ -52,7 +52,11 @@ const addPeer = async ({clientPubKey, ip}) => {
     const ar0 = [...clientPubKey]
     const ar1 = ar0.splice(-1, 1);
     const ar2 = ar0.join("")
-    exec(`wg set wg0 peer ${ar2} allowed-ips 10.0.0.${ip}/32`, (error, stdout) => {
+
+    const ip0 = [...ip]
+    const ip1 = ip0.splice(-1, 1);
+    const ip2 = ip1.join("")
+    exec(`wg set wg0 peer ${ar2} allowed-ips 10.0.0.${ip2}/32`, (error, stdout) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;

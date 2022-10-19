@@ -24,10 +24,12 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-const addUser = async (userId) => {
+const addUser = async (userId, firstName, lastName) => {
   try {
     const docRef = await addDoc(collection(db, "users"), {
-      userId
+      userId,
+      lastName,
+      firstName
     });
     console.log("Document written with ID: ", docRef.id);
     return userId

@@ -1,4 +1,4 @@
 node_modules
 .env
-wireguard/clients/
+wireguard/clients/*
 wireguard/ip
